@@ -1,0 +1,216 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.hidden {
+    display: none;
+}
+
+.toggle-btn {
+    margin: 10px 0;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.toggle-btn:hover {
+    background-color: #0056b3;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input, select, button {
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f9fa;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #fff;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#total-balance {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Базовый стиль для всех ссылок */
+a {
+    color: #007BFF; /* Синий цвет ссылок */
+    text-decoration: none; /* Убираем подчеркивание */
+    font-weight: 500; /* Средняя жирность текста */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Плавные переходы */
+}
+
+/* Стиль для ссылок при наведении */
+a:hover {
+    color: #0056b3; /* Темно-синий цвет при наведении */
+    text-decoration: underline; /* Подчеркивание при наведении */
+}
+
+/* Стиль для посещенных ссылок */
+a:visited {
+    color: #6f42c1; /* Фиолетовый цвет для посещенных ссылок */
+}
+
+/* Стиль для активных ссылок (при нажатии) */
+a:active {
+    color: #d63384; /* Розовый цвет для активных ссылок */
+}
+
+/* Стиль для кнопкообразных ссылок */
+a.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+a.button:hover {
+    background-color: #0056b3; /* Темно-синий при наведении */
+}
+
+a.button:active {
+    background-color: #004080; /* Еще темнее при нажатии */
+}
+
+/* Стили для меню навигации */
+/* Стили для меню навигации */
+nav {
+    background-color: #ffffff; /* Белый фон */
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0; /* Легкая граница снизу */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень для разделения */
+}
+
+.nav-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение */
+    align-items: center; /* Центрирование элементов */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-menu li {
+    margin: 5px 0; /* Отступы между элементами */
+    width: 100%; /* Ширина элементов на всю доступную ширину */
+    text-align: center; /* Центрирование текста */
+}
+
+.nav-menu a {
+    color: #333333; /* Темно-серый цвет текста */
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    display: block; /* Ссылки занимают всю ширину */
+}
+
+.nav-menu a:hover {
+    color: #007BFF; /* Синий цвет при наведении */
+    background-color: rgba(0, 123, 255, 0.1); /* Легкий фон при наведении */
+}
+
+.nav-menu button {
+    background-color: transparent;
+    color: #333333;
+    border: 1px solid #e0e0e0; /* Граница для кнопок */
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 100%; /* Кнопки занимают всю ширину */
+    margin: 5px 0; /* Отступы между кнопками */
+}
+
+.nav-menu button:hover {
+    background-color: #007BFF; /* Синий фон при наведении */
+    color: white; /* Белый текст при наведении */
+    border-color: #007BFF;
+}
+
+/* Стили для активной ссылки (текущей страницы) */
+.nav-menu a.active {
+    color: #007BFF;
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+@media (min-width: 768px) {
+    .nav-menu {
+        flex-direction: row; /* Горизонтальное расположение на широких экранах */
+        justify-content: space-between; /* Равномерное распределение */
+    }
+
+    .nav-menu li {
+        margin: 0 10px; /* Отступы между элементами на широких экранах */
+        width: auto; /* Ширина элементов по содержимому */
+    }
+}

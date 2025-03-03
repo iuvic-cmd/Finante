@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учёт коммунальных услуг</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-container input[type="date"],
+        .form-container input[type="number"],
+        .form-container select,
+        .form-container textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #218838;
+        }
+        .history-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .history-item {
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-btn {
+            padding: 5px 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+        .export-btn {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .export-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <!-- Подключаем библиотеку SheetJS для экспорта в Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+</head>
+<body>
+<header>
+  <h1>Портфель</h1>
+  <nav>
+    <a href="index.html">Главная</a> |
+    <a href="finances.html">Финансы</a> |
+    <a href="tax.html">Налоги</a> |
+    <a href="valuta.html">Валюта</a> |
+    <a href="credit.html">Кредиты</a> |
+    <a href="analiz.html">Анализ</a> |
+    <a href="buget.html">Бюджет</a>
+  </nav>
+</header>
+    <div class="form-container">
+        <h2>Учёт коммунальных услуг</h2>
+        <form id="utilityForm">
+            <label for="date">Дата платежа:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="service">Тип услуги:</label>
+            <select id="service" name="service" required>
+                <option value="gas">Gazul</option>
+                <option value="water">Apa</option>
+                <option value="mobile">Telefonul mobil</option>
+                <option value="internet">Internetul</option>
+                <option value="electricity">Electricitatea</option>
+            </select>
+
+            <label for="account">Счёт для оплаты:</label>
+            <select id="account" name="account" required>
+                <!-- Счета будут добавлены с помощью JavaScript -->
+            </select>
+
+            <label for="amount">Сумма платежа:</label>
+            <input type="number" id="amount" name="amount" min="0" required>
+
+            <label for="description">Описание:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+
+            <button type="submit">Добавить платёж</button>
+        </form>
+    </div>
+
+    <div class="history-container">
+        <h2>История платежей</h2>
+        <button class="export-btn" onclick="exportToExcel()">Экспорт в Excel</button>
+        <div id="historyList"></div>
+    </div>
+
+    <script>
+        // Функция для перевода услуг на румынский язык
+        function translateService(service) {
+            const translations = {
+                gas: "Gazul",
+                water: "Apa",
+                mobile: "Telefonul mobil",
+                internet: "Internetul",
+                electricity: "Electricitatea"
+            };
+            return translations[service] || service;
+        }
+
+        // Загрузка счетов из localStorage
+        let accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+
+        // Функция для обновления списка счетов
+        function updateAccounts() {
+            const accountSelect = document.getElementById('account');
+            accountSelect.innerHTML = '';
+
+            accounts.forEach((account) => {
+                const option = document.createElement('option');
+                option.value = account.name;
+                option.textContent = `${account.name} (${account.balance} ${account.currency})`;
+                accountSelect.appendChild(option);
+            });
+        }
+
+        // Функция для сохранения данных в localStorage
+        function savePayment(payment) {
+            let history = JSON.parse(localStorage.getItem('utilityPayments')) || [];
+            history.push(payment);
+            localStorage.setItem('utilityPayments', JSON.stringify(history));
+            renderHistory();
+        }
+
+        // Функция для загрузки данных из localStorage
+        function loadHistory() {
+            let history = JSON.parse(localStorage.getItem('utilityPayments')) || [];
+            renderHistory(history);
+        }
+
+        // Функция для отображения истории
+        function renderHistory() {
+            const historyList = document.getElementById('historyList');
+            historyList.innerHTML = '';
+
+            let history = JSON.parse(localStorage.getItem('utilityPayments')) || [];
+
+            history.forEach((payment, index) => {
+                const item = document.createElement('div');
+                item.classList.add('history-item');
+
+                item.innerHTML = `
+                    <div>
+                        <p><strong>Дата:</strong> ${payment.date}</p>
+                        <p><strong>Услуга:</strong> ${translateService(payment.service)}</p>
+                        <p><strong>Счёт:</strong> ${payment.account}</p>
+                        <p><strong>Сумма:</strong> ${payment.amount} лей</p>
+                        <p><strong>Описание:</strong> ${payment.description}</p>
+                    </div>
+                    <button class="delete-btn" onclick="deletePayment(${index})">Șterge</button>
+                `;
+
+                historyList.appendChild(item);
+            });
+        }
+
+        // Функция для удаления записи из истории
+        function deletePayment(index) {
+            let history = JSON.parse(localStorage.getItem('utilityPayments')) || [];
+            history.splice(index, 1);
+            localStorage.setItem('utilityPayments', JSON.stringify(history));
+            renderHistory();
+        }
+
+        // Функция для экспорта данных в Excel
+        function exportToExcel() {
+            const history = JSON.parse(localStorage.getItem('utilityPayments')) || [];
+            if (history.length === 0) {
+                alert("Nu există date pentru export.");
+                return;
+            }
+
+            const data = history.map((payment) => ({
+                Data: payment.date,
+                Serviciu: translateService(payment.service),
+                Cont: payment.account,
+                Suma: payment.amount,
+                Descriere: payment.description
+            }));
+
+            const worksheet = XLSX.utils.json_to_sheet(data);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Plăți");
+            XLSX.writeFile(workbook, "plati_utilitati.xlsx");
+        }
+
+        // Обработчик отправки формы
+        document.getElementById('utilityForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const date = document.getElementById('date').value;
+            const service = document.getElementById('service').value;
+            const account = document.getElementById('account').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const description = document.getElementById('description').value;
+
+            if (isNaN(amount)) {
+                alert('Introduceți o sumă validă.');
+                return;
+            }
+
+            // Находим выбранный счёт
+            const selectedAccount = accounts.find(acc => acc.name === account);
+
+            // Проверяем, достаточно ли средств на счёте
+            if (selectedAccount.balance < amount) {
+                alert('Недостаточно средств на счёте!');
+                return;
+            }
+
+            // Списание средств
+            selectedAccount.balance -= amount;
+
+            // Сохраняем обновлённый список счетов
+            localStorage.setItem('accounts', JSON.stringify(accounts));
+
+            // Сохраняем платёж
+            const payment = {
+                date: date,
+                service: service,
+                account: account,
+                amount: amount.toFixed(2),
+                description: description
+            };
+
+            savePayment(payment);
+
+            // Обновляем интерфейс
+            updateAccounts();
+            document.getElementById('utilityForm').reset();
+        });
+
+        // Загрузка истории и счетов при загрузке страницы
+        window.addEventListener('load', function() {
+            loadHistory();
+            updateAccounts();
+        });
+    </script>
+</body>
+</html>

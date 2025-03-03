@@ -1,0 +1,180 @@
+/* Основные стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #34495e;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Форма */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #34495e;
+}
+
+input[type="number"],
+input[type="date"],
+input[type="text"],
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+    background: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="text"]:focus,
+select:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* Кнопки */
+button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-add {
+    background-color: #3498db;
+    color: #fff;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-add:hover {
+    background-color: #2980b9;
+}
+
+.btn-pay {
+    background-color: #27ae60;
+    color: #fff;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-pay:hover {
+    background-color: #219653;
+}
+
+/* Таблица */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #3498db;
+    color: #fff;
+    font-weight: 500;
+}
+
+.table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Итоговая сумма */
+.total-summary {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.total-summary p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.total-summary span {
+    font-weight: 700;
+    color: #27ae60;
+}
+
+/* Стили для ссылки */
+.nav-link {
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+.nav-link a {
+    text-decoration: none;
+    color: #3498db;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link a:hover {
+    color: #2980b9;
+}
+
+.btn-add {
+    background-color: #3498db;
+    color: #fff;
+    width: 100%;
+    margin-top: 1rem;
+    cursor: pointer; /* Убедитесь, что курсор меняется на указатель */
+    pointer-events: auto; /* Убедитесь, что кнопка активна */
+}
+
+.btn-add:hover {
+    background-color: #2980b9;
+}
+

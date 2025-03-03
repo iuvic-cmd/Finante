@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Установка пароля</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h2>Установите пароль</h2>
+    <input type="password" id="newPassword" placeholder="Введите пароль">
+    <input type="password" id="confirmPassword" placeholder="Повторите пароль">
+    <button id="setPassword">Сохранить</button>
+
+    <script>
+        document.getElementById("setPassword").addEventListener("click", function() {
+            let newPassword = document.getElementById("newPassword").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (newPassword === "" || confirmPassword === "") {
+                alert("Введите пароль!");
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert("Пароли не совпадают!");
+                return;
+            }
+
+            localStorage.setItem("appPassword", newPassword);
+            localStorage.setItem("loggedIn", "false");
+            alert("Пароль установлен!");
+            window.location.href = "login.html";
+        });
+    </script>
+</body>
+</html>

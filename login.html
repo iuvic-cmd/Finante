@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h2>Авторизация</h2>
+    <input type="password" id="password" placeholder="Введите пароль">
+    <button id="loginBtn">Войти</button>
+
+    <script>
+        // Проверяем, установлен ли пароль
+        if (!localStorage.getItem("appPassword")) {
+            window.location.href = "setup.html";
+        }
+
+        document.getElementById("loginBtn").addEventListener("click", function() {
+            let password = document.getElementById("password").value;
+            let savedPassword = localStorage.getItem("appPassword");
+
+            if (password === savedPassword) {
+                localStorage.setItem("loggedIn", "true");
+                window.location.href = "index.html";
+            } else {
+                alert("Неверный пароль!");
+            }
+        });
+    </script>
+</body>
+</html>

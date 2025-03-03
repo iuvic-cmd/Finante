@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анализ транзакций</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filters label {
+            font-weight: bold;
+        }
+
+        .filters select, .filters button {
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .filters button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .filters button:hover {
+            background-color: #218838;
+        }
+
+        canvas {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+
+        #statistics {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        #statistics p {
+            margin: 5px 0;
+        }
+
+        .reset-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .reset-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<header>
+  <h1>Портфель</h1>
+  <nav>
+    <a href="index.html">Главная</a> |
+    <a href="finances.html">Финансы</a> |
+    <a href="tax.html">Налоги</a> |
+    <a href="valuta.html">Валюта</a> |
+    <a href="credit.html">Кредиты</a> |
+    <a href="analiz.html">Анализ</a> |
+    <a href="buget.html">Бюджет</a>
+  </nav>
+</header>
+    <h1>Анализ транзакций</h1>
+    <div class="container">
+        <!-- Фильтр по категориям -->
+        <div class="filters">
+            <label for="filterCategory">Категория:</label>
+            <select id="filterCategory">
+                <option value="all">Все категории</option>
+                <!-- Категории будут добавлены сюда автоматически -->
+            </select>
+            <button onclick="updateCharts()">Применить фильтр</button>
+        </div>
+
+        <h2>Диаграмма расходов и доходов</h2>
+        <canvas id="myChart"></canvas>
+
+        <h2>Статистика</h2>
+        <div id="statistics"></div>
+
+        <!-- Кнопка сброса -->
+        <button class="reset-button" onclick="resetAndUpdate()">Сбросить и обновить</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let myChart;
+            let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+            // Функция для заполнения списка категорий
+            function populateCategories() {
+                const categorySelect = document.getElementById('filterCategory');
+                const categories = [...new Set(transactions.map(t => t.category))]; // Уникальные категории
+
+                // Очищаем список и добавляем опцию "Все категории"
+                categorySelect.innerHTML = '<option value="all">Все категории</option>';
+
+                // Добавляем категории в выпадающий список
+                categories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    categorySelect.appendChild(option);
+                });
+            }
+
+            // Функция для обновления диаграммы и статистики
+            function updateCharts() {
+                const filterCategory = document.getElementById('filterCategory').value;
+
+                // Фильтрация транзакций
+                const filteredTransactions = transactions.filter(transaction => {
+                    return filterCategory === 'all' || transaction.category === filterCategory;
+                });
+
+                // Группировка по типу (доходы и расходы)
+                const income = filteredTransactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+                const expense = filteredTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+
+                // Обновление диаграммы
+                const ctx = document.getElementById('myChart').getContext('2d');
+                if (myChart) {
+                    myChart.destroy();
+                }
+                myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Доходы', 'Расходы'],
+                        datasets: [{
+                            label: 'Сумма (MDL)',
+                            data: [income, expense],
+                            backgroundColor: [
+                                'rgba(75, 192, 192, 0.2)', // Цвет для доходов
+                                'rgba(255, 99, 132, 0.2)'  // Цвет для расходов
+                            ],
+                            borderColor: [
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 99, 132, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Сумма (MDL)'
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Обновление статистики
+                const statistics = document.getElementById('statistics');
+                statistics.innerHTML = `
+                    <p>Общий доход: ${income.toFixed(2)} MDL</p>
+                    <p>Общий расход: ${expense.toFixed(2)} MDL</p>
+                    <p>Баланс: ${(income - expense).toFixed(2)} MDL</p>
+                `;
+            }
+
+            // Функция для сброса и обновления данных
+            function resetAndUpdate() {
+                // Очищаем текущие транзакции
+                transactions = [];
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+
+                // Обновляем список категорий
+                populateCategories();
+
+                // Обновляем диаграмму и статистику
+                updateCharts();
+            }
+
+            // Первоначальная загрузка данных
+            populateCategories();
+            updateCharts();
+        });
+    </script>
+</body>
+</html>

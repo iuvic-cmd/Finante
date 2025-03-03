@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Планировщик бюджета</title>
+    <link rel="stylesheet" href="css/buget.css">
+</head>
+<header>
+  <h1>Портфель</h1>
+  <nav>
+    <a href="index.html">Главная</a> |
+    <a href="finances.html">Финансы</a> |
+    <a href="tax.html">Налоги</a> |
+    <a href="valuta.html">Валюта</a> |
+    <a href="credit.html">Кредиты</a> |
+    <a href="analiz.html">Анализ</a> |
+    <a href="comunalca.html">Комунальные</a>
+  </nav>
+</header>
+<body>
+    <div class="container">
+        <h1>Планировщик бюджета</h1>
+        <label for="budget">Общий бюджет:</label>
+        <input type="number" id="budget" placeholder="Введите сумму бюджета">
+        
+        <table id="budgetTable">
+            <thead>
+                <tr>
+                    <th>%</th>
+                    <th>Сумма</th>
+                    <th>Комментарий</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 10 строк для ввода данных -->
+                <script>
+                    for (let i = 0; i < 10; i++) {
+                        document.write(`
+                            <tr>
+                                <td><input type="number" class="percent" placeholder="%"></td>
+                                <td><input type="number" class="amount" readonly></td>
+                                <td><input type="text" class="comment" placeholder="Комментарий"></td>
+                            </tr>
+                        `);
+                    }
+                </script>
+            </tbody>
+        </table>
+
+        <div class="remaining">
+            <strong>Остаток процентов: <span id="remainingPercent">100</span>%</strong>
+        </div>
+
+        <div class="buttons">
+            <button onclick="resetBudget()">Общий сброс</button>
+        </div>
+    </div>
+
+    <script src="js/buget.js"></script>
+</body>
+</html>

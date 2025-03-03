@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансы</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>Портфель</h1>
+  <nav>
+    <a href="index.html">Главная</a> |
+    <a href="finances.html">Финансы</a> |
+    <a href="tax.html">Налоги</a> |
+    <a href="valuta.html">Валюта</a> |
+    <a href="credit.html">Кредиты</a> |
+    <a href="analiz.html">Анализ</a> |
+    <a href="buget.html">Бюджет</a>
+  </nav>
+</header>    <div id="total-balance">Общий баланс: 0 MDL</div>
+    <h1>Финансовый учёт</h1>
+
+    <button class="toggle-btn" data-target="transactions">Транзакции</button>
+    <div id="transactions">
+        <h2>Форма транзакции</h2>
+        <form id="transaction-form">
+            <label>Дата: <input type="date" id="date" required></label>
+            <label>Категория: <select id="category" required></select></label>
+            <label>Счёт: <select id="account" required></select></label>
+            <label>Тип: 
+                <select id="type" required>
+                    <option value="income">Доход</option>
+                    <option value="expense">Расход</option>
+                    <option value="transfer">Перевод</option>
+                </select>
+            </label>
+            <label id="hidden-account-label" class="hidden">Счёт перевода: 
+                <select id="hidden-account"></select>
+            </label>
+            <label>Сумма: <input type="number" id="amount" required></label>
+            <label>Описание: <input type="text" id="description" required></label>
+            <button type="submit">Добавить транзакцию</button>
+        </form>
+
+        <h2>История транзакций</h2>
+        <table id="transaction-history">
+            <thead>
+                <tr>
+                    <th>Дата</th><th>Категория</th><th>Счёт</th><th>Тип</th><th>Сумма</th><th>Описание</th><th>Удалить</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <button class="toggle-btn" data-target="accounts">Счета</button>
+    <div id="accounts" class="hidden">
+        <h2>Счета</h2>
+        <form id="account-form">
+            <label>Название счёта: <input type="text" id="account-name" required></label>
+            <label>Баланс: <input type="number" id="account-balance" required></label>
+            <label>Валюта: <select id="currency" required></select></label>
+            <button type="submit">Добавить счёт</button>
+        </form>
+
+        <h2>Список счетов</h2>
+        <ul id="account-list"></ul>
+    </div>
+
+    <button class="toggle-btn" data-target="categories">Категории</button>
+    <div id="categories" class="hidden">
+        <h2>Категории</h2>
+        <form id="category-form">
+            <label>Название категории: <input type="text" id="category-name" required></label>
+            <button type="submit">Добавить категорию</button>
+        </form>
+
+        <h2>Список категорий</h2>
+        <ul id="category-list"></ul>
+    </div>
+
+    <button id="export-excel">Экспорт в Excel</button>
+    <button id="reset">Сброс</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="js/finances.js"></script>
+</body>
+</html>

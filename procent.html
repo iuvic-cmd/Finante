@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма с расчётом процента</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-container input[type="date"],
+        .form-container input[type="number"],
+        .form-container textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .history-container {
+            margin-top: 20px;
+        }
+        .history-item {
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete-btn {
+            padding: 5px 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<header>
+  <h1>Портфель</h1>
+  <nav>
+    <a href="index.html">Главная</a> |
+    <a href="finances.html">Финансы</a> |
+    <a href="tax.html">Налоги</a> |
+    <a href="valuta.html">Валюта</a> |
+    <a href="credit.html">Кредиты</a> |
+    <a href="analiz.html">Анализ</a> |
+    <a href="buget.html">Бюджет</a>
+  </nav>
+</header>
+    <div class="form-container">
+        <h2>Расчёт процента от суммы</h2>
+        <form id="dataForm">
+            <label for="date">Дата:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="sum">Сумма:</label>
+            <input type="number" id="sum" name="sum" min="0" required>
+
+            <label for="percentage">Процент:</label>
+            <input type="number" id="percentage" name="percentage" min="0" max="100" required>
+
+            <label for="description">Описание:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+
+            <button type="submit">Рассчитать</button>
+        </form>
+    </div>
+
+    <div class="history-container">
+        <h2>История платежей</h2>
+        <div id="historyList"></div>
+    </div>
+
+    <script>
+        // Функция для сохранения данных в localStorage
+        function saveHistory(payment) {
+            let history = JSON.parse(localStorage.getItem('paymentHistory')) || [];
+            history.push(payment);
+            localStorage.setItem('paymentHistory', JSON.stringify(history));
+            renderHistory();
+        }
+
+        // Функция для загрузки данных из localStorage
+        function loadHistory() {
+            let history = JSON.parse(localStorage.getItem('paymentHistory')) || [];
+            renderHistory(history);
+        }
+
+        // Функция для отображения истории
+        function renderHistory() {
+            const historyList = document.getElementById('historyList');
+            historyList.innerHTML = '';
+
+            let history = JSON.parse(localStorage.getItem('paymentHistory')) || [];
+
+            history.forEach((payment, index) => {
+                const item = document.createElement('div');
+                item.classList.add('history-item');
+
+                item.innerHTML = `
+                    <div>
+                        <p><strong>Дата:</strong> ${payment.date}</p>
+                        <p><strong>Сумма:</strong> ${payment.sum} лей</p>
+                        <p><strong>Процент:</strong> ${payment.percentage}%</p>
+                        <p><strong>Итог:</strong> ${payment.result} лей</p>
+                        <p><strong>Описание:</strong> ${payment.description}</p>
+                    </div>
+                    <button class="delete-btn" onclick="deletePayment(${index})">Удалить</button>
+                `;
+
+                historyList.appendChild(item);
+            });
+        }
+
+        // Функция для удаления записи из истории
+        function deletePayment(index) {
+            let history = JSON.parse(localStorage.getItem('paymentHistory')) || [];
+            history.splice(index, 1);
+            localStorage.setItem('paymentHistory', JSON.stringify(history));
+            renderHistory();
+        }
+
+        // Обработчик отправки формы
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const date = document.getElementById('date').value;
+            const sum = parseFloat(document.getElementById('sum').value);
+            const percentage = parseFloat(document.getElementById('percentage').value);
+            const description = document.getElementById('description').value;
+
+            if (isNaN(sum) || isNaN(percentage)) {
+                alert('Введите корректные значения суммы и процента.');
+                return;
+            }
+
+            const result = (sum * percentage) / 100;
+
+            const payment = {
+                date: date,
+                sum: sum.toFixed(2),
+                percentage: percentage.toFixed(2),
+                result: result.toFixed(2),
+                description: description
+            };
+
+            saveHistory(payment);
+
+            document.getElementById('dataForm').reset();
+        });
+
+        // Загрузка истории при загрузке страницы
+        window.addEventListener('load', loadHistory);
+    </script>
+</body>
+</html>
