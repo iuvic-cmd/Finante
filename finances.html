@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Финансы</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header>
-  <h1>Портфель</h1>
-  <nav>
-    <a href="index.html">Главная</a> |
-    <a href="finances.html">Финансы</a> |
-    <a href="tax.html">Налоги</a> |
-    <a href="valuta.html">Валюта</a> |
-    <a href="credit.html">Кредиты</a> |
-    <a href="analiz.html">Анализ</a> |
-    <a href="buget.html">Бюджет</a>
-  </nav>
-</header>    <div id="total-balance">Общий баланс: 0 MDL</div>
+    <div id="app">
+        <header>
+            <h1>MyFinanceApp</h1>
+            <nav>
+                <a href="index.html" title="Главная"><i class="fas fa-home"></i></a>
+                <a href="finances.html" title="Финансы"><i class="fas fa-wallet"></i></a>
+                <a href="tax.html" title="Налоги"><i class="fas fa-file-invoice-dollar"></i></a>
+                <a href="comunalca.html" title="Комунальные"><i class="fas fa-coins"></i></a>
+                <a href="credit.html" title="Кредиты"><i class="fas fa-credit-card"></i></a>
+                <a href="analiz.html" title="Анализ"><i class="fas fa-chart-line"></i></a>
+                <a href="buget.html" title="Бюджет"><i class="fas fa-money-bill"></i></a>
+            </nav>
+        </header>
+    <div id="total-balance">Общий баланс: 0 MDL</div>
     <h1>Финансовый учёт</h1>
 
     <button class="toggle-btn" data-target="transactions">Транзакции</button>
@@ -38,7 +41,7 @@
             <label id="hidden-account-label" class="hidden">Счёт перевода: 
                 <select id="hidden-account"></select>
             </label>
-            <label>Сумма: <input type="number" id="amount" required></label>
+            <label>Сумма: <input type="number" id="amount" step="0.01" required></label>
             <label>Описание: <input type="text" id="description" required></label>
             <button type="submit">Добавить транзакцию</button>
         </form>
@@ -59,7 +62,7 @@
         <h2>Счета</h2>
         <form id="account-form">
             <label>Название счёта: <input type="text" id="account-name" required></label>
-            <label>Баланс: <input type="number" id="account-balance" required></label>
+            <label>Баланс: <input type="number" id="account-balance" step="0.01" required></label>
             <label>Валюта: <select id="currency" required></select></label>
             <button type="submit">Добавить счёт</button>
         </form>

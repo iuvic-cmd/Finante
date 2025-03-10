@@ -1,12 +1,11 @@
-/* Основные стили */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
-}
-
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff; /* Белый текст для контраста */
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+  }
 h1, h2 {
     color: #333;
 }
@@ -88,32 +87,11 @@ ul {
 }
 
 ul li {
-    display: flex; /* Делаем элемент гибким контейнером */
-    justify-content: space-between; /* Распределяем пространство между элементами */
-    align-items: center; /* Выравниваем элементы по вертикали */
     background-color: #fff;
     margin: 5px 0;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-}
-
-ul li .item-name {
-    flex-grow: 1; /* Название занимает все доступное пространство слева */
-}
-
-ul li .delete-btn {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-ul li .delete-btn:hover {
-    background-color: #c82333;
 }
 
 /* Общий баланс */
@@ -257,134 +235,4 @@ nav a.active {
     nav a i {
         font-size: 40px; /* Уменьшенный размер иконок на мобильных */
     }
-}
-
-.hidden {
-    display: none;
-}
-
-#chart-container {
-    margin: 20px 0;
-}
-
-#period-buttons {
-    margin: 10px 0;
-}
-
-#period-buttons button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-#transaction-history {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#transaction-history th, #transaction-history td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-#transaction-history th {
-    background-color: #f2f2f2;
-}
-
-.chart-container {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-
-.chart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.toggle-chart-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.toggle-chart-btn:hover {
-    background-color: #0056b3;
-}
-
-.chart-container.collapsed canvas {
-    display: none;
-}
-
-.chart-container.collapsed {
-    display: none; /* Скрывает весь контейнер */
-}
-
-.chart-container {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 20px;
-    position: relative; /* Для позиционирования кнопки */
-}
-
-.toggle-chart-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    position: absolute; /* Кнопка всегда вверху */
-    top: 10px;
-    right: 10px;
-    z-index: 1; /* Чтобы кнопка была поверх содержимого */
-}
-
-.toggle-chart-btn:hover {
-    background-color: #0056b3;
-}
-
-.chart-content.collapsed {
-    display: none; /* Скрывает внутреннюю часть контейнера */
-}
-
-#period-buttons {
-    margin: 20px 0;
-}
-
-#period-buttons button {
-    margin: 0 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
-
-#period-buttons button:hover {
-    background-color: #0056b3;
-}
-
-#expense-chart-container, #income-chart-container {
-    margin: 20px 0;
-}
-
-#selected-period {
-    margin: 20px 0;
-    font-size: 1.2em;
-}
-
-#totals {
-    margin: 20px 0;
-    font-size: 1.2em;
-}
-
-#totals p {
-    margin: 5px 0;
 }

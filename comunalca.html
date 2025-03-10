@@ -4,106 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Учёт коммунальных услуг</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-        }
-        .form-container {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .form-container label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .form-container input[type="date"],
-        .form-container input[type="number"],
-        .form-container select,
-        .form-container textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .form-container button {
-            padding: 10px 15px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .form-container button:hover {
-            background-color: #218838;
-        }
-        .history-container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .history-item {
-            background: #fff;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .delete-btn {
-            padding: 5px 10px;
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .delete-btn:hover {
-            background-color: #c82333;
-        }
-        .export-btn {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .export-btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
     <!-- Подключаем библиотеку SheetJS для экспорта в Excel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 <header>
-  <h1>Портфель</h1>
-  <nav>
-    <a href="index.html">Главная</a> |
-    <a href="finances.html">Финансы</a> |
-    <a href="tax.html">Налоги</a> |
-    <a href="valuta.html">Валюта</a> |
-    <a href="credit.html">Кредиты</a> |
-    <a href="analiz.html">Анализ</a> |
-    <a href="buget.html">Бюджет</a>
-  </nav>
+        <h1>MyFinanceApp</h1>
+        <nav>
+            <a href="index.html" title="Главная"><i class="fas fa-home"></i></a>
+            <a href="finances.html" title="Финансы"><i class="fas fa-wallet"></i></a>
+            <a href="tax.html" title="Налоги"><i class="fas fa-file-invoice-dollar"></i></a>
+            <a href="comunalca.html" title="Комуналка"><i class="fas fa-coins"></i></a>
+            <a href="credit.html" title="Кредиты"><i class="fas fa-credit-card"></i></a>
+            <a href="analiz.html" title="Анализ"><i class="fas fa-chart-line"></i></a>
+            <a href="buget.html" title="Бюджет"><i class="fas fa-money-bill"></i></a>
+        </nav>
 </header>
     <div class="form-container">
         <h2>Учёт коммунальных услуг</h2>

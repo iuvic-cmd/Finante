@@ -214,6 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Экспорт в Excel
+// Экспорт в Excel
     exportExcelButton.addEventListener('click', function () {
         const data = transactions.map(transaction => ({
             Дата: transaction.date,

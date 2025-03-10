@@ -4,56 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portofel</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/index.css">
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <!-- Меню навигации -->
-<header>
-  <h1>Портфель</h1>
-  <nav>
-    <a href="index.html">Главная</a> |
-    <a href="finances.html">Финансы</a> |
-    <a href="tax.html">Налоги</a> |
-    <a href="valuta.html">Валюта</a> |
-    <a href="credit.html">Кредиты</a> |
-    <a href="analiz.html">Анализ</a> |
-    <a href="buget.html">Бюджет</a>
-  </nav>
-</header>
-    <!-- Основной контент -->
-    <div class="container">
-        <h1>Навигация</h1>
-
-        <!-- Форма для добавления долга -->
-        <form id="debtForm">
-            <select id="debtType" required>
-                <option value="owed">Мне должны</option>
-                <option value="owe">Я должен</option>
-            </select>
-            <input type="text" id="debtor" placeholder="Имя" required>
-            <input type="number" id="amount" placeholder="Сумма" required>
-            <select id="currency" required>
-                <option value="LEI">Лей (LEI)</option>
-                <option value="USD">Доллар (USD)</option>
-                <option value="EUR">Евро (EUR)</option>
-            </select>
-            <input type="date" id="dueDate" required>
-            <textarea id="description" placeholder="Описание"></textarea>
-            <button type="submit">Добавить Долг</button>
-        </form>
-
-        <!-- Кнопка для сворачивания/разворачивания списка долгов -->
-        <button id="toggleDebtList">Показать/Скрыть историю долгов</button>
-
-        <!-- Список долгов -->
-        <ul id="debtList" style="display: none;"></ul>
-
-        <!-- Кнопки сброса и экспорта -->
-        <button id="resetButton">Сбросить Все</button>
-        <button id="exportButton">Экспорт в Excel</button>
-    </div>
-
+    <header>
+        <h1>MyFinanceApp</h1>
+<nav>
+            <a href="index.html" title="Главная"><i class="fas fa-home"></i></a>
+            <a href="finances.html" title="Финансы"><i class="fas fa-wallet"></i></a>
+            <a href="tax.html" title="Налоги"><i class="fas fa-file-invoice-dollar"></i></a>
+            <a href="comunalca.html" title="Комунальные"><i class="fas fa-coins"></i></a>
+            <a href="credit.html" title="Кредиты"><i class="fas fa-credit-card"></i></a>
+            <a href="analiz.html" title="Анализ"><i class="fas fa-chart-line"></i></a>
+            <a href="buget.html" title="Бюджет"><i class="fas fa-money-bill"></i></a>
+        </nav>
+ </header>
+    <main>
+        <p>Добро пожаловать в MyFinanceApp! Выберите раздел выше.</p>
+    </main>
+</body>
     <!-- Подключение библиотеки для работы с Excel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
     <!-- Основной скрипт -->

@@ -3,172 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Страница налога</title>
     <style>
+/* Основные стили */
 body {
-            font-family: 'Arial', sans-serif;
-            margin: 20px;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 2.5em;
-        }
-        a {
-            text-decoration: none;
-            color: #3498db;
-            font-weight: bold;
-        }
-        a:hover {
-            color: #2980b9;
-        }
-        #incomes, #taxSummary {
-            margin-top: 30px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background-color: #f9f9f9;
-            margin: 10px 0;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        li:hover {
-            background-color: #e0e0e0;
-        }
-        .tax-info {
-            margin-top: 20px;
-            padding: 20px;
-            background: linear-gradient(135deg, #28a745, #218838);
-            color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        input[type="number"] {
-            width: 120px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1em;
-            transition: border-color 0.3s ease;
-        }
-        input[type="number"]:focus {
-            border-color: #3498db;
-            outline: none;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-        .tax-info p {
-            margin: 10px 0;
-            font-size: 1.1em;
-        }
-        .tax-info p strong {
-            font-weight: bold;
-        }
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    animation: GradientBackground 15s ease infinite;
+}
+
+@keyframes GradientBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Заголовки */
+h1 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+}
+
+h2 {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+}
+
+/* Ссылки */
+a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Кнопки */
+button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Поля ввода */
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    margin: 10px 5px;
+    width: calc(100% - 22px);
+    max-width: 300px;
+}
+
+/* Лейблы */
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 1.1em;
+    color: #fff;
+}
+
+/* Блоки с информацией */
+#accountInfo, #incomes, #taxSummary {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Списки */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+/* Параграфы в блоках */
+#accountInfo p, #incomes p, #taxSummary p {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+#accountInfo p strong, #incomes p strong, #taxSummary p strong {
+    color: #fff;
+}
+
+/* Навигация */
+nav {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+nav a i {
+    font-size: 24px;
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    nav a i {
+        font-size: 40px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    button {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    input {
+        width: 100%;
+        max-width: none;
+    }
+}
     </style>
 </head>
 <body>
-<header>
-  <h1>Портфель</h1>
-  <nav>
-    <a href="index.html">Главная</a> |
-    <a href="finances.html">Финансы</a> |
-    <a href="tax.html">Налоги</a> |
-    <a href="valuta.html">Валюта</a> |
-    <a href="credit.html">Кредиты</a> |
-    <a href="analiz.html">Анализ</a> |
-    <a href="buget.html">Бюджет</a>
-    <a href="procent.html">%</a>
-  </nav>
-</header>
+<nav>
+            <a href="index.html" title="Главная"><i class="fas fa-home"></i></a>
+            <a href="finances.html" title="Финансы"><i class="fas fa-wallet"></i></a>
+            <a href="tax.html" title="Налоги"><i class="fas fa-file-invoice-dollar"></i></a>
+            <a href="comunalca.html" title="Комуналка"><i class="fas fa-coins"></i></a>
+            <a href="credit.html" title="Кредиты"><i class="fas fa-credit-card"></i></a>
+            <a href="analiz.html" title="Анализ"><i class="fas fa-chart-line"></i></a>
+            <a href="buget.html" title="Бюджет"><i class="fas fa-money-bill"></i></a>
+        </nav>
     <h1>Страница налога</h1>
 
-    <!-- Поле для выбора процента налога -->
+    <div id="accountInfo">
+        <h2>Налоговый счет</h2>
+        <p><strong>Название счета:</strong> <span id="accountName">Не создан</span></p>
+        <p><strong>Баланс:</strong> <span id="accountBalance">0</span> MDL</p>
+        <label for="newAccountName">Название счета:</label>
+        <input type="text" id="newAccountName" placeholder="Введите название">
+        <label for="initialBalance">Начальный баланс:</label>
+        <input type="number" id="initialBalance" value="0" min="0" step="0.01">
+        <button onclick="createAccount()">Создать счет</button>
+        <button onclick="resetAccount()">Обнулить счет</button>
+    </div>
+
     <label for="taxRate">Процент налога:</label>
     <input type="number" id="taxRate" value="12" min="0" max="100" step="0.1">
     <button onclick="loadIncomes()">Применить</button>
+    <button onclick="payTax()">Заплатить налог</button>
+    <button onclick="resetAll()">Сбросить все данные</button>
 
     <div id="incomes">
-        <!-- Сюда будут вставлены доходы -->
+        <h2>Доходы</h2>
     </div>
     <div id="taxSummary">
-        <!-- Сюда будет вставлена информация о налоге -->
+        <h2>Информация о налоге</h2>
     </div>
+<script>
+    // Сохранение данных в localStorage
+    function saveData(key, data) {
+        localStorage.setItem(key, JSON.stringify(data));
+    }
 
-    <script>
-        // Функция для расчета налога
-        function calculateTax(incomes, taxRate) {
-            const totalIncome = incomes.reduce((sum, income) => sum + income.amount, 0);
-            const taxAmount = totalIncome * (taxRate / 100);
-            return { totalIncome, taxAmount };
+    // Загрузка данных из localStorage
+    function loadData(key) {
+        return JSON.parse(localStorage.getItem(key)) || null;
+    }
+
+    // Сохранение процента налога
+    function saveTaxRate() {
+        const taxRate = parseFloat(document.getElementById('taxRate').value);
+        localStorage.setItem('taxRate', taxRate);
+    }
+
+    // Восстановление процента налога
+    function loadTaxRate() {
+        const savedTaxRate = localStorage.getItem('taxRate');
+        if (savedTaxRate !== null) {
+            document.getElementById('taxRate').value = savedTaxRate;
+        }
+    }
+
+    // Создание налогового счета
+    function createAccount() {
+        const name = document.getElementById('newAccountName').value;
+        const balance = parseFloat(document.getElementById('initialBalance').value);
+
+        if (!name || isNaN(balance)) {
+            alert('Введите корректные данные.');
+            return;
         }
 
-        // Функция для загрузки доходов из localStorage
-        function loadIncomes() {
-            const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-            const incomesContainer = document.getElementById('incomes');
-            const taxSummaryContainer = document.getElementById('taxSummary');
+        const account = { id: "taxAccount", name, balance };
+        saveData('taxAccount', account);
+        updateAccountDisplay();
+    }
 
-            // Получаем выбранный процент налога
-            const taxRate = parseFloat(document.getElementById('taxRate').value);
-
-            // Фильтруем только доходы
-            const incomes = transactions.filter(transaction => transaction.type === 'income');
-
-            if (incomes.length === 0) {
-                incomesContainer.innerHTML = '<p>Нет данных о доходах.</p>';
-                taxSummaryContainer.innerHTML = '<p>Нет данных для расчета налога.</p>';
-                return;
-            }
-
-            // Отображаем доходы
-            let html = '<ul>';
-            incomes.forEach(income => {
-                html += `<li>${income.date}: ${income.amount} MDL - ${income.description}</li>`;
-            });
-            html += '</ul>';
-            incomesContainer.innerHTML = html;
-
-            // Рассчитываем налог
-            const { totalIncome, taxAmount } = calculateTax(incomes, taxRate);
-            taxSummaryContainer.innerHTML = `
-                <div class="tax-info">
-                    <p><strong>Общий доход:</strong> ${totalIncome} MDL</p>
-                    <p><strong>Налог (${taxRate}%):</strong> ${taxAmount.toFixed(2)} MDL</p>
-                </div>
-            `;
+    // Обнуление налогового счета
+    function resetAccount() {
+        let account = loadData('taxAccount');
+        if (!account) {
+            alert('Счет еще не создан.');
+            return;
         }
 
-        // Загружаем доходы при загрузке страницы
-        window.onload = loadIncomes;
-    </script>
+        account.balance = 0;
+        saveData('taxAccount', account);
+        updateAccountDisplay();
+        alert('Баланс налогового счета обнулен.');
+    }
+
+    // Обновление отображения счета
+    function updateAccountDisplay() {
+        const account = loadData('taxAccount');
+        if (account) {
+            document.getElementById('accountName').textContent = account.name;
+            document.getElementById('accountBalance').textContent = account.balance.toFixed(2);
+        }
+    }
+
+    // Расчет налога
+    function calculateTax(incomes, taxRate) {
+        const totalIncome = incomes.reduce((sum, income) => sum + income.amount, 0);
+        const taxAmount = totalIncome * (taxRate / 100);
+        return { totalIncome, taxAmount };
+    }
+
+    // Загрузка доходов и расчет налога
+    function loadIncomes() {
+        saveTaxRate(); // Сохраняем процент налога
+        const transactions = loadData('transactions') || [];
+        const incomesContainer = document.getElementById('incomes');
+        const taxSummaryContainer = document.getElementById('taxSummary');
+        const taxRate = parseFloat(document.getElementById('taxRate').value);
+
+        const incomes = transactions.filter(tr => tr.type === 'income');
+
+        if (incomes.length === 0) {
+            incomesContainer.innerHTML = '<p>Нет данных о доходах.</p>';
+            taxSummaryContainer.innerHTML = '<p>Нет данных для расчета налога.</p>';
+            return;
+        }
+
+        let html = '<ul>';
+        incomes.forEach(income => {
+            html += `<li>${income.date}: ${income.amount} MDL - ${income.description}</li>`;
+        });
+        html += '</ul>';
+        incomesContainer.innerHTML = html;
+
+        const { totalIncome, taxAmount } = calculateTax(incomes, taxRate);
+        taxSummaryContainer.innerHTML = `
+            <div>
+                <p><strong>Общий доход:</strong> ${totalIncome.toFixed(2)} MDL</p>
+                <p><strong>Налог (${taxRate}%):</strong> ${taxAmount.toFixed(2)} MDL</p>
+            </div>
+        `;
+    }
+
+    // Оплата налога
+    function payTax() {
+        const taxRate = parseFloat(document.getElementById('taxRate').value);
+        const transactions = loadData('transactions') || [];
+        const incomes = transactions.filter(tr => tr.type === 'income');
+
+        if (incomes.length === 0) {
+            alert('Нет данных о доходах.');
+            return;
+        }
+
+        const { taxAmount } = calculateTax(incomes, taxRate);
+        let account = loadData('taxAccount');
+
+        if (!account) {
+            alert('Сначала создайте налоговый счет.');
+            return;
+        }
+
+        account.balance += taxAmount;
+        saveData('taxAccount', account);
+
+        transactions.push({
+            id: Date.now(),
+            date: new Date().toLocaleDateString(),
+            type: 'tax',
+            amount: taxAmount,
+            description: `Перевод в налоговый фонд (${taxRate}%)`
+        });
+        saveData('transactions', transactions);
+
+        alert(`Переведено на налоговый счет: ${taxAmount.toFixed(2)} MDL`);
+        updateAccountDisplay();
+        loadIncomes();
+    }
+
+    // Сброс всех данных
+    function resetAll() {
+        if (confirm('Вы уверены, что хотите сбросить все данные?')) {
+            localStorage.clear();
+            updateAccountDisplay();
+            loadIncomes();
+            alert('Данные сброшены.');
+        }
+    }
+
+    // Инициализация при загрузке страницы
+    window.onload = function() {
+        loadTaxRate(); // Восстанавливаем процент налога
+        updateAccountDisplay();
+        loadIncomes();
+    };
+
+    // Сохранение процента налога при изменении поля ввода
+    document.getElementById('taxRate').addEventListener('input', saveTaxRate);
+</script>
 </body>
 </html>
